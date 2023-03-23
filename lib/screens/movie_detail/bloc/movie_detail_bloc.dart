@@ -8,13 +8,16 @@ import 'package:palette_generator/palette_generator.dart';
 class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   MovieDetailBloc() : super(MovieDetailInitialState()) {
     on<UpdateColorPaletteEvent>((event, emit) async {
+      emit(LoadingState());
+      var paletteGenerator = await _updatePaletteGenerator(event.imageUrl);
       emit(UpdateColorPaletteState(
-        paletteGenerator: await _updatePaletteGenerator(event.imageUrl),
+        paletteGenerator: paletteGenerator,
       ));
     });
   }
 
-  String url = 'https://image.tmdb.org/t/p/w500/8WUVHemHFH2ZIP6NWkwlHWsyrEL.jpg';
+  String url =
+      'https://image.tmdb.org/t/p/w500/8WUVHemHFH2ZIP6NWkwlHWsyrEL.jpg';
   int _count = 0;
   List<String> posterUrl = [
     'https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',
@@ -22,7 +25,7 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
     'https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_Ratio0.6762_AL_.jpg',
   ];
 
-  void changePoster(){
+  void changePoster() {
     _count++;
     if (_count == posterUrl.length) {
       _count = 0;

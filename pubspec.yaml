@@ -50,11 +50,15 @@ dependencies:
   #Flutter Rating Bar - Rating
   flutter_rating_bar: ^4.0.1
   palette_generator: ^0.3.3+2
-  ###
 
   #Dart code metrics
   dart_code_metrics: ^5.7.0
   ###
+
+  #Shimmer
+  shimmer: ^2.0.0
+  ###
+
 
   #Connectivity
   connectivity_plus: ^3.0.3

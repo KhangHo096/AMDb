@@ -11,3 +11,6 @@ class UpdateColorPaletteState extends MovieDetailState {
     required this.paletteGenerator,
   });
 }
+
+class LoadingState extends MovieDetailState {
+}

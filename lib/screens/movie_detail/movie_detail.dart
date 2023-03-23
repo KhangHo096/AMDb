@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:amdb/screens/movie_detail/bloc/movie_detail_bloc.dart';
 import 'package:amdb/screens/movie_detail/bloc/movie_detail_state.dart';
+import 'package:amdb/widget/BaseShimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
