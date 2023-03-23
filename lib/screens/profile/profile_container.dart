@@ -15,11 +15,10 @@ class _ProfileContainerContainerState extends State<ProfileContainer> {
     _bloc = BlocProvider.of<ProfileBloc>(context);
     super.initState();
   }
-  //
+
   @override
   Widget build(BuildContext context) {
     PaletteGenerator? paletteGenerator;
-
     return Scaffold(
         body: Stack(
         children: [
@@ -30,8 +29,8 @@ class _ProfileContainerContainerState extends State<ProfileContainer> {
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               colors: paletteGenerator?.colors.toList() ??
-                  [Colors.white, Colors.white],),
-        ),),),
+                  [Colors.white, Colors.white]),
+        ))),
         _buildBody(),
           BlocBuilder<ProfileBloc, ProfileState>(
           builder: (context, state) {
