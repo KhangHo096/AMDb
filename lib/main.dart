@@ -1,4 +1,6 @@
 import 'package:amdb/screens/movie_detail/movie_detail.dart';
+import 'package:amdb/screens/profile/bloc/profile_bloc.dart';
+import 'package:amdb/screens/profile/profile.dart';
 import 'package:amdb/screens/splash/splash.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MovieDetailPage(),
+      home: const ProfilePage(),
     );
   }
 }

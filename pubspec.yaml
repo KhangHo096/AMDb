@@ -49,6 +49,10 @@ dependencies:
   palette_generator: ^0.3.3+2
   ###
 
+  #Shimmer
+  shimmer: ^2.0.0
+  ###
+
 
 
 

@@ -23,6 +23,10 @@ class _MovieDetailContainerState extends State<MovieDetailContainer> {
     return Scaffold(
       body: BlocBuilder<MovieDetailBloc, MovieDetailState>(
         builder: (context, state) {
+          // return _buildShimmer();
+          if (state is LoadingState) {
+            return _buildShimmer();
+          }
           if (state is UpdateColorPaletteState) {
             paletteGenerator = state.paletteGenerator;
           }
@@ -106,42 +110,46 @@ class _MovieDetailContainerState extends State<MovieDetailContainer> {
   BlocBuilder<MovieDetailBloc, MovieDetailState> _buildBody() {
     return BlocBuilder<MovieDetailBloc, MovieDetailState>(
       builder: (context, state) {
-        return Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: const EdgeInsets.fromLTRB(20, 105, 20, 20),
-                  child: Row(
-                    children: [
-                      _buildPosterImage(),
-                      Expanded(
-                        flex: 6,
-                        child: Container(
-                          margin: const EdgeInsets.only(left: 16),
-                          height: MediaQuery.of(context).size.height/3.8,
-                          child: _buildMovieInfo(),
-                        ),
+        return SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.fromLTRB(20, 105, 20, 20),
+                child: Row(
+                  children: [
+                    _buildPosterImage(),
+                    Expanded(
+                      flex: 6,
+                      child: Container(
+                        margin: const EdgeInsets.only(left: 16),
+                        height: MediaQuery.of(context).size.height / 3.8,
+                        child: _buildMovieInfo(),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                _buildButton(),
-                _buildOverview(),
-                _buildCredits(),
-                Container(
-                    margin: const EdgeInsets.only(left: 20),
-                    child:  Text("Seasons",style: _titleTextStyle(),)),
-                _buildSeasons(),
-                Container(
-                    margin: const EdgeInsets.only(left: 20),
-                    child: Text("Cast",style: _titleTextStyle(),)),
-                _buildCastList(),
-                _buildSimilarTitle(),
-                _buildSimilarList(),
-              ],
-            ),
+              ),
+              _buildButton(),
+              _buildOverview(),
+              _buildCredits(),
+              Container(
+                  margin: const EdgeInsets.only(left: 20),
+                  child: Text(
+                    "Seasons",
+                    style: _titleTextStyle(),
+                  )),
+              _buildSeasons(),
+              Container(
+                  margin: const EdgeInsets.only(left: 20),
+                  child: Text(
+                    "Cast",
+                    style: _titleTextStyle(),
+                  )),
+              _buildCastList(),
+              _buildSimilarTitle(),
+              _buildSimilarList(),
+            ],
           ),
         );
       },
@@ -169,11 +177,84 @@ class _MovieDetailContainerState extends State<MovieDetailContainer> {
     );
   }
 
+  Widget _buildShimmer() {
+    return Container(
+      color: Colors.black54,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: const EdgeInsets.fromLTRB(20, 105, 20, 20),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 4,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: BaseShimmer(
+                      width: MediaQuery.of(context).size.width / 3.5,
+                      height: MediaQuery.of(context).size.height / 3.8,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 6,
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 16),
+                    height: MediaQuery.of(context).size.height / 3.8,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        BaseShimmer(
+                          width: MediaQuery.of(context).size.width,
+                          height: 20,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 5),
+                          child: BaseShimmer(
+                            width: MediaQuery.of(context).size.width,
+                            height: 20,
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 5),
+                          child: BaseShimmer(
+                            width: MediaQuery.of(context).size.width,
+                            height: 20,
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 5),
+                          child: BaseShimmer(
+                            width: MediaQuery.of(context).size.width,
+                            height: 20,
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 5),
+                          child: BaseShimmer(
+                            width: MediaQuery.of(context).size.width,
+                            height: 20,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildPosterImage() {
     return Expanded(
       flex: 4,
       child: Container(
-        height: MediaQuery.of(context).size.height/3.8,
+        height: MediaQuery.of(context).size.height / 3.8,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Image.network(
@@ -184,6 +265,7 @@ class _MovieDetailContainerState extends State<MovieDetailContainer> {
       ),
     );
   }
+
   Widget _buildMovieInfo() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -230,7 +312,7 @@ class _MovieDetailContainerState extends State<MovieDetailContainer> {
 
   Widget _buildButton() {
     return Container(
-      margin: const EdgeInsets.fromLTRB(20,0,20,0),
+      margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
       child: Row(
         children: [
           ElevatedButton.icon(
@@ -299,7 +381,7 @@ class _MovieDetailContainerState extends State<MovieDetailContainer> {
 
   Widget _buildOverview() {
     return Container(
-        margin: const EdgeInsets.fromLTRB(20,20,20,0),
+        margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
         child: Text(
           "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster.",
           style: _smallTextStyle(),
@@ -309,7 +391,7 @@ class _MovieDetailContainerState extends State<MovieDetailContainer> {
   Widget _buildCredits() {
     List<int> data = [1, 2, 3];
     return Container(
-      margin: const EdgeInsets.fromLTRB(20,20,20,20),
+      margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
       child:
           Column(children: data.map((item) => _buildCreditItem(item)).toList()),
     );
@@ -356,7 +438,7 @@ class _MovieDetailContainerState extends State<MovieDetailContainer> {
 
   Widget _buildSeasonItem(int index) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width / 3 - (80/3),
+      width: MediaQuery.of(context).size.width / 3 - (80 / 3),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -391,14 +473,12 @@ class _MovieDetailContainerState extends State<MovieDetailContainer> {
     return Container(
       margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
       height: MediaQuery.of(context).size.width / 4 + 50,
-      child: Expanded(
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: data.length,
-          itemBuilder: (context, index) {
-            return _buildCastItem(index);
-          },
-        ),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: data.length,
+        itemBuilder: (context, index) {
+          return _buildCastItem(index);
+        },
       ),
     );
   }
@@ -437,7 +517,10 @@ class _MovieDetailContainerState extends State<MovieDetailContainer> {
             ),
           ),
           Text('Leonardo DiCaprio', style: _normalTextStyle()),
-          Text('Himself', style: _smallTextStyle(),),
+          Text(
+            'Himself',
+            style: _smallTextStyle(),
+          ),
         ],
       ),
     );
@@ -451,7 +534,10 @@ class _MovieDetailContainerState extends State<MovieDetailContainer> {
         children: [
           Expanded(
             flex: 7,
-            child: Text('Similar',style: _titleTextStyle(),),
+            child: Text(
+              'Similar',
+              style: _titleTextStyle(),
+            ),
           ),
           Expanded(
             flex: 6,
@@ -459,7 +545,10 @@ class _MovieDetailContainerState extends State<MovieDetailContainer> {
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: () {},
-                child:  Text('See all',style: _smallTextStyle(),),
+                child: Text(
+                  'See all',
+                  style: _smallTextStyle(),
+                ),
               ),
             ),
           ),
@@ -472,14 +561,12 @@ class _MovieDetailContainerState extends State<MovieDetailContainer> {
     List<int> data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     return Container(
       height: MediaQuery.of(context).size.height / 4,
-      child: Expanded(
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: data.length,
-          itemBuilder: (context, index) {
-            return _buildSimilarItem(index);
-          },
-        ),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: data.length,
+        itemBuilder: (context, index) {
+          return _buildSimilarItem(index);
+        },
       ),
     );
   }
@@ -504,7 +591,7 @@ class _MovieDetailContainerState extends State<MovieDetailContainer> {
           const SizedBox(
             height: 5,
           ),
-           Text(
+          Text(
             'The Avenger: End game',
             overflow: TextOverflow.ellipsis,
             style: _normalTextStyle(),
