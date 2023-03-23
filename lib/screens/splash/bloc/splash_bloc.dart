@@ -1,5 +1,6 @@
 import 'package:amdb/screens/splash/bloc/splash_event.dart';
 import 'package:amdb/screens/splash/bloc/splash_state.dart';
+import 'package:amdb/services/repository/search_repository.dart';
 import 'package:bloc/bloc.dart';
 
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
@@ -10,7 +11,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
         name: 'Khang Ho',
       ));
     });
-    on<SplashButtonEvent>((event, emit) async {
+    on<SplashButtonEvent>((event, emit) {
       emit(SplashButtonState(
         text: event.text,
       ));
@@ -20,6 +21,6 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   String text = '';
 
   Future<void> _fetchConfigData() async {
-    await Future.delayed(const Duration(milliseconds: 1000));
+    final response = await SearchRepository().search(searchKey: 'Modern family');
   }
 }
